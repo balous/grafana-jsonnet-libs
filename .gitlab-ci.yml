@@ -1,0 +1,15 @@
+stages:
+  - build
+
+image: docker.ops.iszn.cz/szn-image/golang-build:latest
+
+build:
+  stage: build
+  script:
+    - make install-ci-deps
+    - make -C cilium-enterprise-mixin dashboards_out prometheus_alerts.yaml
+
+  artifacts:
+    paths:
+      - cilium-enterprise-mixin/prometheus_alerts.yaml
+      - cilium-enterprise-mixin/dashboards_out/
