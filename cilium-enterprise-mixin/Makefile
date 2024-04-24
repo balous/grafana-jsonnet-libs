@@ -26,10 +26,10 @@ dashboards_out: mixin.libsonnet
 	@mkdir -p dashboards_out
 	jsonnet -J vendor -m dashboards_out -e "(import 'mixin.libsonnet').grafanaDashboards"
 
-prometheus_alerts.yaml: mixin.libsonnet alerts/*.libsonnet
+prometheus_alerts.yaml: mixin.libsonnet alerts/*.libsonnet config.libsonnet
 	mixtool generate alerts mixin.libsonnet -a prometheus_alerts.yaml
 
 
 .PHONY: clean
 clean:
-	rm -rf dashboards_out
+	rm -rf dashboards_out prometheus_alerts.yaml
